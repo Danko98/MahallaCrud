@@ -22,34 +22,34 @@ public class DistrictController {
     @Autowired
     DistrictService districtService;
 
-    @PreAuthorize(value = "hasAuthority('ADD_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('ADD')")
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addDistrict(@RequestBody DistrictDto districtDto) {
         ApiResponse apiResponse = districtService.addDistrict(districtDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PreAuthorize(value = "hasAuthority('EDIT_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('EDIT')")
     @PutMapping("/edit/{id}")
     public ResponseEntity<ApiResponse> editDistrict(@RequestBody DistrictDto districtDto, @PathVariable Integer id) {
         ApiResponse apiResponse = districtService.editDistrict(districtDto, id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PreAuthorize(value = "hasAuthority('READ_ALL_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('READ_ALL')")
     @GetMapping("/get")
     public List<District> getDistrictList() {
         return districtRepository.findAll();
     }
 
-    @PreAuthorize(value = "hasAuthority('GET_ONE_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('GET_ONE')")
     @GetMapping("/get/{id}")
     public ResponseEntity<ApiResponse> getDistrict(@PathVariable Integer id) {
         ApiResponse district = districtService.getDistrict(id);
         return ResponseEntity.ok(district);
     }
 
-    @PreAuthorize(value = "hasAuthority('DELETE_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('DELETE')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResponse> deleteDistrict(@PathVariable Integer id) {
         ApiResponse apiResponse = districtService.deleteDistrict(id);

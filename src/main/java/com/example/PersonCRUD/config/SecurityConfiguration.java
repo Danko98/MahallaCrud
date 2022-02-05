@@ -21,11 +21,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("superAdmin").password(passwordEncoder().encode("superAdmin")).roles("SUPER_ADMIN").authorities("READ_ALL_PRODUCT","ADD_PRODUCT","EDIT_PRODUCT","DELETE_PRODUCT","GET_ONE_PRODUCT")
+                .withUser("superAdmin").password(passwordEncoder().encode("superAdmin")).roles("SUPER_ADMIN").authorities("READ_ALL", "ADD", "EDIT", "DELETE", "GET_ONE")
                 .and()
-                .withUser("moderator").password(passwordEncoder().encode("moderator")).roles("MODERATOR ").authorities("READ_ALL_PRODUCT","ADD_PRODUCT","EDIT_PRODUCT","GET_ONE_PRODUCT")
+                .withUser("moderator").password(passwordEncoder().encode("moderator")).roles("MODERATOR ").authorities("READ_ALL", "ADD", "EDIT", "GET_ONE")
                 .and()
-                .withUser("operator").password(passwordEncoder().encode("operator")).roles("OPERATOR").authorities("READ_ALL_PRODUCT","GET_ONE_PRODUCT");
+                .withUser("operator").password(passwordEncoder().encode("operator")).roles("OPERATOR").authorities("READ_ALL", "GET_ONE");
     }
 
     @Override
@@ -33,10 +33,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.DELETE,"/api/*").hasAuthority("DELETE_PRODUCT")
-                .antMatchers(HttpMethod.GET,"/api/*").hasAnyAuthority("READ_ALL_PRODUCT","GET_ONE_PRODUCT")
-                .antMatchers(HttpMethod.POST,"/api/*").hasAuthority("ADD_PRODUCT")
-                .antMatchers(HttpMethod.PUT,"/api/*").hasAuthority("EDIT_PRODUCT")
+                .antMatchers(HttpMethod.DELETE,"/api/*").hasAuthority("DELETE")
+                .antMatchers(HttpMethod.GET,"/api/*").hasAnyAuthority("READ_ALL", "GET_ONE")
+                .antMatchers(HttpMethod.POST,"/api/*").hasAuthority("ADD")
+                .antMatchers(HttpMethod.PUT,"/api/*").hasAuthority("EDIT")
                 .anyRequest()
                 .authenticated()
                 .and()

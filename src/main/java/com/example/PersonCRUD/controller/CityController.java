@@ -23,7 +23,7 @@ public class CityController {
     @Autowired
     CityRepository cityRepository;
 
-    @PreAuthorize(value = "hasAuthority('ADD_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('ADD')")
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addCity(@RequestBody CityDto cityDto){
         ApiResponse apiResponse = cityService.addCity(cityDto);
@@ -31,29 +31,29 @@ public class CityController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PreAuthorize(value = "hasAuthority('EDIT_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('EDIT')")
     @PutMapping("/edit/{id}")
     public ResponseEntity<ApiResponse> edit(@RequestBody CityDto cityDto, @PathVariable Integer id){
         ApiResponse apiResponse = cityService.editCity(cityDto, id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 404).body(apiResponse);
     }
 
-    @PreAuthorize(value = "hasAuthority('READ_ALL_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('READ_ALL')")
     @GetMapping("/get")
     public List<City> getCityList(){
         return cityRepository.findAll();
     }
 
-    @PreAuthorize(value = "hasAuthority('GET_ONE_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('GET_ONE')")
     @GetMapping("/get/{id}")
-    public ResponseEntity getCityById(@PathVariable Integer id){
+    public ResponseEntity<ApiResponse> getCityById(@PathVariable Integer id){
         ApiResponse apiResponse = cityService.getById(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 404).body(apiResponse);
     }
 
-    @PreAuthorize(value = "hasAuthority('DELETE_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('DELETE')")
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteCity(@PathVariable Integer id){
+    public ResponseEntity<ApiResponse> deleteCity(@PathVariable Integer id){
         ApiResponse apiResponse = cityService.deleteCity(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 404 ).body(apiResponse);
     }

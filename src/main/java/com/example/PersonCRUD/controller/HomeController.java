@@ -21,34 +21,34 @@ public class HomeController {
     @Autowired
     HomeRepository homeRepository;
 
-    @PreAuthorize(value = "hasAuthority('ADD_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('ADD')")
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addHome(@RequestBody HomeDto homeDto) {
         ApiResponse apiResponse = homeService.addHome(homeDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PreAuthorize(value = "hasAuthority('EDIT_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('EDIT')")
     @PutMapping("/edit/{id}")
     public ResponseEntity<ApiResponse> editHome(@RequestBody HomeDto homeDto, @PathVariable Integer id) {
         ApiResponse apiResponse = homeService.editHome(homeDto, id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PreAuthorize(value = "hasAuthority('READ_ALL_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('READ_ALL')")
     @GetMapping("/get")
     public List<Home> getHomeList() {
         return homeRepository.findAll();
     }
 
-    @PreAuthorize(value = "hasAuthority('GET_ONE_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('GET_ONE')")
     @GetMapping("/get/{id}")
     public ResponseEntity<ApiResponse> getHomeById(@PathVariable Integer id) {
         ApiResponse home = homeService.getHome(id);
         return ResponseEntity.ok(home);
     }
 
-    @PreAuthorize(value = "hasAuthority('DELETE_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('DELETE')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResponse> deleteHome(@PathVariable Integer id) {
         ApiResponse apiResponse = homeService.deleteHome(id);

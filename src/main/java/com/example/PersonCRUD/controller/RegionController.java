@@ -23,34 +23,34 @@ public class RegionController {
     @Autowired
     RegionRepository regionRepository;
 
-    @PreAuthorize(value = "hasAuthority('ADD_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('ADD')")
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addRegion(@RequestBody Region regionDto){
         ApiResponse apiResponse = regionService.addRegion(regionDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PreAuthorize(value = "hasAuthority('EDIT_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('EDIT')")
     @PutMapping("/edit/{id}")
     public ResponseEntity<ApiResponse> editRegion(@RequestBody Region regionDto, @PathVariable Integer id) {
         ApiResponse apiResponse = regionService.editRegion(regionDto, id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PreAuthorize(value = "hasAuthority('READ_ALL_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('READ_ALL')")
     @GetMapping("/get")
     public List<Region> getRegionList(){
         return regionRepository.findAll();
     }
 
-    @PreAuthorize(value = "hasAuthority('GET_ONE_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('GET_ONE')")
     @GetMapping("/get/{id}")
     public ResponseEntity<ApiResponse> getRegionById(@PathVariable Integer id){
         ApiResponse apiResponse = regionService.getRegionById(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 404).body(apiResponse);
     }
 
-    @PreAuthorize(value = "hasAuthority('DELETE_PRODUCT')")
+    @PreAuthorize(value = "hasAuthority('DELETE')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResponse> deleteRegion(@PathVariable Integer id) {
         ApiResponse apiResponse = regionService.deleteById(id);
